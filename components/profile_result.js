@@ -10,6 +10,14 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+import {
+  MenuContext,
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from 'react-native-popup-menu';
+
 import Expo, { Constants } from 'expo';
 
 let {height , width} = Dimensions.get('window')
@@ -17,12 +25,24 @@ let {height , width} = Dimensions.get('window')
 export default class ProfileResult extends React.Component {
 
   openPopup() {
-    
+    console.log('test');
+    <View>
+      <Text> Message? </Text>
+      <Menu>
+        <MenuTrigger text=""/>
+        <MenuOptions>
+          <MenuOption onSelect={() => alert('Messaged!')} text="Message"/>
+          <MenuOption onSelect={() => alert('Details requested!')} text="Details"/>
+          <MenuOption onSelect={() => alert('Cancel')} text="Cancel"/>
+          <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text='Disabled' />
+        </MenuOptions>
+      </Menu>
+    </View>
   }
 
   render() {
     return (
-      <TouchableOpacity onPress{this.openPopup}}>
+      <TouchableOpacity onPress={() => this.openPopup}>
         <View style={styles.profileContainer}>
           <Image
             source={require('../assets/images/no_pic.jpg')}
