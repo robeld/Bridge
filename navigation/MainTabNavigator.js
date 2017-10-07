@@ -11,10 +11,10 @@ import SettingsScreen from '../screens/SettingsScreen';
 
 export default TabNavigator(
   {
-    NotHome: {
+    Finding: {
       screen: HomeScreen,
     },
-    Links: {
+    Messaging: {
       screen: LinksScreen,
     },
     Settings: {
@@ -27,12 +27,12 @@ export default TabNavigator(
         const { routeName } = navigation.state;
         let iconName;
         switch (routeName) {
-          case 'NotHome':
+          case 'Finding':
             iconName = Platform.OS === 'ios'
               ? `ios-information-circle${focused ? '' : '-outline'}`
               : 'md-information-circle';
             break;
-          case 'Links':
+          case 'Messaging':
             iconName = Platform.OS === 'ios'
               ? `ios-link${focused ? '' : '-outline'}`
               : 'md-link';
