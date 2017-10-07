@@ -12,6 +12,22 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
+const config = {
+    apiKey: "AIzaSyAVEWEDbzbuEOTuyoAWYqFwTggf8Ut4C7Q",
+    authDomain: "bridge-fb5ab.firebaseapp.com",
+    databaseURL: "https://bridge-fb5ab.firebaseio.com",
+    projectId: "bridge-fb5ab",
+    storageBucket: "bridge-fb5ab.appspot.com",
+    messagingSenderId: "87959739697"
+};
+
+try {
+  firebase.initializeApp(config);
+} catch(e) {
+  console.log('App reloaded, so firebase did not re-initialize');
+}
+
+
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -50,7 +66,7 @@ export default class HomeScreen extends React.Component {
             </View>
 
             <Text style={styles.getStartedText}>
-              Css 
+              Css
             </Text>
           </View>
 
