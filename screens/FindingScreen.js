@@ -11,6 +11,24 @@ import {
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
+import ProfileResult from '../components/profile_result.js'
+
+
+const config = {
+    apiKey: "AIzaSyAVEWEDbzbuEOTuyoAWYqFwTggf8Ut4C7Q",
+    authDomain: "bridge-fb5ab.firebaseapp.com",
+    databaseURL: "https://bridge-fb5ab.firebaseio.com",
+    projectId: "bridge-fb5ab",
+    storageBucket: "bridge-fb5ab.appspot.com",
+    messagingSenderId: "87959739697"
+};
+
+try {
+  firebase.initializeApp(config);
+} catch(e) {
+  console.log('App reloaded, so firebase did not re-initialize');
+}
+
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -31,38 +49,16 @@ export default class HomeScreen extends React.Component {
                   : require('../assets/images/robot-prod.png')
               }
               style={styles.welcomeImage}
-            />
+              />
           </View>
 
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View
-              style={[
-                styles.codeHighlightContainer,
-                styles.homeScreenFilename,
-              ]}>
-              <MonoText style={styles.codeHighlightText}>
-                screens/HomeScreen.js
-              </MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Css 
-            </Text>
+          <View style={styles.resultsContainer}>
+            <ProfileResult> </ProfileResult>
+            <ProfileResult> </ProfileResult>
+            <ProfileResult> </ProfileResult>
+            <ProfileResult> </ProfileResult>
           </View>
 
-          <View style={styles.helpContainer}>
-            <TouchableOpacity
-              onPress={this._handleHelpPress}
-              style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>
-                Help, it didn’t automatically reload!
-              </Text>
-            </TouchableOpacity>
-          </View>
         </ScrollView>
 
         <View style={styles.tabBarInfoContainer}>
@@ -80,41 +76,6 @@ export default class HomeScreen extends React.Component {
       </View>
     );
   }
-
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use
-          useful development tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/development-mode'
-    );
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
 }
 
 const styles = StyleSheet.create({
@@ -144,9 +105,11 @@ const styles = StyleSheet.create({
     marginTop: 3,
     marginLeft: -10,
   },
-  getStartedContainer: {
+  resultsContainer: {
+    flex: 1,
+    flexDirection: 'column',
     alignItems: 'center',
-    marginHorizontal: 50,
+    justifyContent: 'center'
   },
   homeScreenFilename: {
     marginVertical: 7,

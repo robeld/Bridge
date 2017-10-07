@@ -1,5 +1,6 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, Platform, Text, View } from 'react-native';
+import { GiftedChat } from 'react-native-gifted-chat';
 import { ExpoLinksView } from '@expo/samples';
 
 export default class LinksScreen extends React.Component {

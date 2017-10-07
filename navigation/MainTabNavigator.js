@@ -5,17 +5,17 @@ import { TabNavigator, TabBarBottom } from 'react-navigation';
 
 import Colors from '../constants/Colors';
 
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import FindingScreen from '../screens/FindingScreen';
+import MessagingScreen from '../screens/MessagingScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 export default TabNavigator(
   {
     Finding: {
-      screen: HomeScreen,
+      screen: FindingScreen,
     },
     Messaging: {
-      screen: LinksScreen,
+      screen: MessagingScreen,
     },
     Settings: {
       screen: SettingsScreen,
