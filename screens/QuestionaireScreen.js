@@ -64,11 +64,19 @@ export default class QuestionaireScreen extends React.Component {
   }
 
 
-  handleSubmit() {
+  async handleSubmit() {
     const { navigate } = this.props.navigation;
     total = this.state['name'] + ',' + this.state['email'] + ',' + this.state['gradYear'] + ',' + this.state['sex'] + ',' + this.state['ethnicity'] + ',' + this.state['major'] + '/' + this.state['courses'];
+    let id = 0
+    try {
+      const response = await fetch("https://bridge-knn.herokuapp.com/adduser/" + total);
+      id = await response.text();
+    }
+    catch(e) {
+      console.error(e);
+    }
 
-    navigate('Finding');
+    navigate('Finding', {unique_id: id});
   };
 
   render() {

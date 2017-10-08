@@ -49,7 +49,7 @@ export default class HomeScreen extends React.Component {
       if(init) {
         const path = id + "/" + text + "/" + str(FETCH_NUM)
         let response = await fetch(encodeURIComponent("https://bridge-knn.herokuapp.com/" + path));
-        const indices_str = await text(response);
+        const indices_str = await response.text();
         const indices = indices_str.split(",")
         console.log(indices)
       }
