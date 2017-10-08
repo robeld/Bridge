@@ -167,6 +167,7 @@ export default class FindingScreen extends React.Component {
 
 const styles = StyleSheet.create({
   listItem: {
+    margin: 20,
     width: 300
   },
   container: {
