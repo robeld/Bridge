@@ -25,7 +25,7 @@ export default class LoginScreen extends React.Component {
           />
         </View>
 
-        <Button color="#FFF"
+        <Button color="#006400"
         title="Log in with Facebook" onPress={this._handlePressAsync} />
         {this.state.result ? (
           <Text>{JSON.stringify(this.state.result)}</Text>
@@ -82,14 +82,16 @@ const styles = StyleSheet.create({
   logo: {
     width: width - 20,
     height: 200,
-    marginTop: -height/2 + 200,
+    marginTop: -height/2 + 150,
     backgroundColor: 'transparent'
   },
 
   title: {
     color: '#FFF',
     marginTop: 10,
-    width: 160,
+    fontSize: 24,
+    width: 260,
+    fontStyle: 'italic',
     textAlign: "center",
     textShadowColor: 'black',
     textShadowRadius: 5,
