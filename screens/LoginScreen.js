@@ -25,7 +25,7 @@ export default class LoginScreen extends React.Component {
         <View style={styles.logoContainer}>
         <Image
           style={styles.logo}
-          source={require("../assets/images/logo.png")}
+          source={require("../assets/images/white_logo.png")}
           />
         </View>
 
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#3498db'
+    backgroundColor: 'black'
   },
 
   logoContainer: {
