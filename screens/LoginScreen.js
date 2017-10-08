@@ -13,6 +13,7 @@ export default class LoginScreen extends React.Component {
   };
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
 
@@ -27,10 +28,12 @@ export default class LoginScreen extends React.Component {
           source={require("../assets/images/logo.png")}
           />
         </View>
-
-
-            <Text style={styles.title}>Connect to Students Like You</Text>
-        <Button title="Submit" onPress={(text) => console.log(text)} style={styles.formContainer}> </Button>
+        
+        <Text style={styles.title}>Connect to Students Like You</Text>
+        <Button title="Submit" onPress={() =>
+            navigate('Questionaire') }
+            style={styles.formContainer}>
+        </Button>
       </View>
     );
   };
