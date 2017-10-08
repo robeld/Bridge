@@ -87,6 +87,10 @@ export default class FindingScreen extends React.Component {
             one_person['year'] = data[1];
             one_person['email'] = data[2];
             closest.push(one_person);
+
+            const response2 = await fetch("https://bridge-knn.herokuapp.com/common/" + id + '/' + indices[i])
+            const similarTraits= await response2.text();
+            console.log(similarTraits);
           }
 
           this.state['people'] = closest;
