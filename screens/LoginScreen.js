@@ -17,6 +17,8 @@ export default class LoginScreen extends React.Component {
     return (
       <View style={styles.container}>
 
+        <Text style={styles.title}>Connect to Students Like You</Text>
+
         
         <View style={styles.logoContainer}>
         <Image
@@ -25,13 +27,12 @@ export default class LoginScreen extends React.Component {
           />
         </View>
 
-        <Button color="#006400"
+        <Button color="#cbf2ff"
         title="Log in with Facebook" onPress={this._handlePressAsync} />
         {this.state.result ? (
           <Text>{JSON.stringify(this.state.result)}</Text>
         ) : null}
 
-        <Text style={styles.title}>Connect to Students Like You</Text>
         
       </View>
     );
@@ -57,7 +58,7 @@ export default class LoginScreen extends React.Component {
       `https://graph.facebook.com/me?access_token=${token}`);
     Alert.alert(
       'Logged in!',
-      `Hi ${(await response.json()).name}!`,
+      `Welcome to Bridge, ${(await response.json()).name}! Fill out this questionnaire to get started.`,
     );
     navigate('Questionaire')
   }
