@@ -13,11 +13,13 @@ import {
 
 const FETCH_NUM =  5
 
-import { SearchBar, List, ListItem } from 'react-native-elements';
+import { SearchBar, List, ListItem, ListView } from 'react-native-elements';
 
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
+
+import { ProfileResult } from '../components/profile_result'
 
 const {height, width} = Dimensions.get("window");
 
@@ -37,15 +39,17 @@ try {
 }
 
 
-export default class HomeScreen extends React.Component {
+export default class FindingScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       value: "",
+      people: []
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.queryDb = this.queryDb.bind(this);
+    this.render = this.render.bind(this);
   }
 
   handleChange(text) {
@@ -65,11 +69,30 @@ export default class HomeScreen extends React.Component {
         id = await AsyncStorage.getItem('@unique_id');
         if(id !== null) {
           const path = id + "/" + this.state['value'] + "/" + FETCH_NUM;
-          console.log(path);
+          console.log("path: " + path);
           let response = await fetch("https://bridge-knn.herokuapp.com/getSim/" + path);
           const indices_str = await response.text();
           const indices = indices_str.split(",");
+
           console.log(indices);
+
+          const closest = [];
+
+          for(let i = 0; i < indices.length; i++) {
+            one_person = {};
+            const response = await fetch("https://bridge-knn.herokuapp.com/info/" + indices[i])
+            const text = await response.text();
+            const data = text.split(",");
+            one_person['name'] = data[0];
+            one_person['year'] = data[1];
+            one_person['email'] = data[2];
+            closest.push(one_person);
+          }
+
+          this.state['people'] = closest;
+          console.log("DONE");
+          console.log(this.state['people']);
+          this.forceUpdate();
         }
       } catch(error) {
         console.error(error);
@@ -80,9 +103,39 @@ export default class HomeScreen extends React.Component {
     }
   }
 
+  renderRow(rowData, sectionID) {
+    return (
+      <ListItem
+        roundAvatar
+        key={sectionID}
+        title={rowData.name}
+        subtitle={rowData.year}
+        avatar={{uri:"../assets/images/no_pic.jpg"}}
+        />
+    )
+  }
+
   render() {
+    var kk = this.state['people'].map(function(obj, i) {
+      console.log(obj.name);
+      console.log(obj.year);
+      console.log(i);
+      var temp = obj.name;
+      var temp2 = obj.email;
+      return (
+        <ListItem
+          key={i}
+          title={temp}
+          subtitle={temp2}
+          avatar={{uri:"../assets/images/no_pic.jpg"}}
+          style={styles.listItem}
+        />
+      )
+    }.bind(this));
+
     return (
       <View style={styles.container}>
+
         <ScrollView
           style={styles.container}
           contentContainerStyle={styles.contentContainer}>
@@ -99,6 +152,9 @@ export default class HomeScreen extends React.Component {
               />
           </View>
           <View style={styles.resultsContainer}>
+            <List>
+              {kk}
+            </List>
           </View>
 
         </ScrollView>
@@ -106,9 +162,13 @@ export default class HomeScreen extends React.Component {
       </View>
     );
   }
+
 }
 
 const styles = StyleSheet.create({
+  listItem: {
+    width: 300
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',

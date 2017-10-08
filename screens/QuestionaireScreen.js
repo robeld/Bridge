@@ -29,7 +29,7 @@ export default class QuestionaireScreen extends React.Component {
   };
 
   static navigationOptions = {
-    title: 'QuestionaireScreen'
+    title: 'Tell us about yourself'
   };
 
   handleAChange(event) {
@@ -70,15 +70,15 @@ export default class QuestionaireScreen extends React.Component {
     try {
       const response = await fetch("https://bridge-knn.herokuapp.com/adduser/" + total);
       id = await response.text();
+      console.log('id: ' + id);
+      try {
+        await AsyncStorage.setItem('@unique_id', id);
+      } catch(error) {
+        console.log(error);
+      }
     }
     catch(e) {
       console.error(e);
-    }
-
-    try {
-      await AsyncStorage.setItem('@unique_id', id);
-    } catch(error) {
-      console.log(error);
     }
 
     navigate('Finding');

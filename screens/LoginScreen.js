@@ -17,7 +17,7 @@ export default class LoginScreen extends React.Component {
     return (
       <View style={styles.container}>
 
-        
+
         <View style={styles.logoContainer}>
         <Image
           style={styles.logo}
@@ -32,7 +32,7 @@ export default class LoginScreen extends React.Component {
         ) : null}
 
         <Text style={styles.title}>Connect to Students Like You</Text>
-        
+
       </View>
     );
   };
