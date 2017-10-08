@@ -3,6 +3,9 @@ import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
 import LoginScreen from '../screens/LoginScreen';
+import QuestionaireScreen from '../screens/QuestionaireScreen';
+import FindingScreen from '../screens/FindingScreen';
+import MessagingScreen from '../screens/MessagingScreen';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 const RootStackNavigator = StackNavigator(
@@ -10,6 +13,15 @@ const RootStackNavigator = StackNavigator(
     Main: {
       screen: LoginScreen,
     },
+    Questionaire: {
+      screen: QuestionaireScreen
+    },
+    Finding: {
+      screen: FindingScreen
+    },
+    MessagingScreen: {
+      screen: MessagingScreen
+    }
   },
   {
     navigationOptions: () => ({
