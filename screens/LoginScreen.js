@@ -17,11 +17,7 @@ export default class LoginScreen extends React.Component {
     return (
       <View style={styles.container}>
 
-        <Button title="Open FB Auth" onPress={this._handlePressAsync} />
-        {this.state.result ? (
-          <Text>{JSON.stringify(this.state.result)}</Text>
-        ) : null}
-
+        
         <View style={styles.logoContainer}>
         <Image
           style={styles.logo}
@@ -29,16 +25,20 @@ export default class LoginScreen extends React.Component {
           />
         </View>
 
+        <Button color="#FFF"
+        title="Log in with Facebook" onPress={this._handlePressAsync} />
+        {this.state.result ? (
+          <Text>{JSON.stringify(this.state.result)}</Text>
+        ) : null}
+
         <Text style={styles.title}>Connect to Students Like You</Text>
-        <Button title="Submit" onPress={() =>
-            navigate('Questionaire') }
-            style={styles.formContainer}>
-        </Button>
+        
       </View>
     );
   };
 
   _handlePressAsync = async () => {
+    const { navigate } = this.props.navigation;
     /*let redirectUrl = AuthSession.getRedirectUrl();
     let result = await AuthSession.startAsync({
       authUrl:
@@ -59,6 +59,7 @@ export default class LoginScreen extends React.Component {
       'Logged in!',
       `Hi ${(await response.json()).name}!`,
     );
+    navigate('Questionaire')
   }
   };
 
