@@ -4,7 +4,7 @@ import { AuthSession, Facebook } from 'expo';
 
 const {height, width} = Dimensions.get("window")
 
-const FB_APP_ID = '130552880933614'; 
+const FB_APP_ID = '130552880933614';
 
 export default class LoginScreen extends React.Component {
 
@@ -31,7 +31,6 @@ export default class LoginScreen extends React.Component {
           <Text>{JSON.stringify(this.state.result)}</Text>
         ) : null}
 
-        
         <Text style={styles.title}>Connect to Students Like You</Text>
         
       </View>
@@ -49,7 +48,7 @@ export default class LoginScreen extends React.Component {
     });
     this.setState({ result }); */
 
-    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('130552880933614', { // make 
+    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('130552880933614', { // make
       permissions: ['public_profile'],
     });
     if (type === 'success') {

@@ -39,18 +39,33 @@ try {
 
 
 export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: "",
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.queryDb = this.queryDb.bind(this);
+  }
+
+  handleChange(text) {
+    this.state['value'] = text;
+  }
+
   static navigationOptions = {
     header: null,
   };
 
-  async queryDb(text) {
+  async queryDb() {
+    console.log("TESTING");
+    console.log(this.state['value']);
     try {
-      console.log("reached");
       let id = -1;
       try {
         id = await AsyncStorage.getItem('@unique_id');
         if(id !== null) {
-          const path = id + "/" + text + "/" + FETCH_NUM;
+          const path = id + "/" + this.state['value'] + "/" + FETCH_NUM;
           console.log(path);
           let response = await fetch("https://bridge-knn.herokuapp.com/getSim/" + path);
           const indices_str = await response.text();
@@ -77,14 +92,15 @@ export default class HomeScreen extends React.Component {
               source={ require('../assets/images/logo.png') }
               style={styles.welcomeImage}
               />
-          </View>
-
-          <View style={styles.resultsContainer}>
             <SearchBar
               round={true}
-              onChangeText={(text) => this.setState({text})}
-              onSubmitEditing={(text) => this.queryDb(text)}
-              placeholder='Search for a course!'/>
+              onChangeText={this.handleChange}
+              onSubmitEditing={this.queryDb}
+              placeholder='Search for a course!'
+              />
+          </View>
+          <View style={styles.resultsContainer}>
+
           </View>
 
         </ScrollView>
@@ -112,7 +128,7 @@ const styles = StyleSheet.create({
   welcomeContainer: {
     alignItems: 'center',
     marginTop: 10,
-    marginBottom: 20,
+    marginBottom: 20
   },
   welcomeImage: {
     width: width - 10,
