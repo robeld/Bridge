@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { Text, View, ScrollView, StyleSheet, Image, Dimensions} from 'react-native';
+import { AsyncStorage, Text, View, ScrollView, StyleSheet, Image, Dimensions} from 'react-native';
 
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
-
 
 export default class QuestionaireScreen extends React.Component {
   constructor(props) {
@@ -76,12 +75,18 @@ export default class QuestionaireScreen extends React.Component {
       console.error(e);
     }
 
-    navigate('Finding', {unique_id: id});
+    try {
+      await AsyncStorage.setItem('@unique_id', id);
+    } catch(error) {
+      console.log(error);
+    }
+
+    navigate('Finding');
   };
 
   render() {
     return (
-      <View>
+      <ScrollView>
         <FormLabel>Full Name</FormLabel>
         <FormInput onChangeText={this.handleAChange}/>
 
@@ -109,7 +114,7 @@ export default class QuestionaireScreen extends React.Component {
           onPress={()=>this.handleSubmit()}
           title="Submit!"
           />
-      </View>
+      </ScrollView>
     );
   };
 }

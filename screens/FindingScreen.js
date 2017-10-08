@@ -7,7 +7,8 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
-  View
+  View,
+  AsyncStorage
 } from 'react-native';
 
 const FETCH_NUM =  5
@@ -45,16 +46,19 @@ export default class HomeScreen extends React.Component {
   async queryDb(text) {
     try {
       console.log("reached");
-      let init = await fetch(encodeURIComponent("https://bridge-knn.herokuapp.com/"));
-      if(init) {
-        const path = id + "/" + text + "/" + str(FETCH_NUM)
-        let response = await fetch(encodeURIComponent("https://bridge-knn.herokuapp.com/" + path));
-        const indices_str = await response.text();
-        const indices = indices_str.split(",")
-        console.log(indices)
-      }
-      else {
-        console.log("error initalizing");
+      let id = -1;
+      try {
+        id = await AsyncStorage.getItem('@unique_id');
+        if(id !== null) {
+          const path = id + "/" + text + "/" + FETCH_NUM;
+          console.log(path);
+          let response = await fetch("https://bridge-knn.herokuapp.com/getSim/" + path);
+          const indices_str = await response.text();
+          const indices = indices_str.split(",");
+          console.log(indices);
+        }
+      } catch(error) {
+        console.error(error);
       }
     }
     catch(e) {
