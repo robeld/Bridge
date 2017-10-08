@@ -13,12 +13,11 @@ import {
 
 const FETCH_NUM =  5
 
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, List, ListItem } from 'react-native-elements';
 
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
-import ProfileResult from '../components/profile_result.js'
 
 const {height, width} = Dimensions.get("window");
 
@@ -100,7 +99,6 @@ export default class HomeScreen extends React.Component {
               />
           </View>
           <View style={styles.resultsContainer}>
-
           </View>
 
         </ScrollView>
