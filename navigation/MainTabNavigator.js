@@ -7,7 +7,7 @@ import Colors from '../constants/Colors';
 
 import FindingScreen from '../screens/FindingScreen';
 import MessagingScreen from '../screens/MessagingScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import LoginScreen from '../screens/LoginScreen';
 
 export default TabNavigator(
   {
@@ -17,8 +17,8 @@ export default TabNavigator(
     Messaging: {
       screen: MessagingScreen,
     },
-    Settings: {
-      screen: SettingsScreen,
+    Login: {
+      screen: LoginScreen,
     },
   },
   {
@@ -37,7 +37,7 @@ export default TabNavigator(
               ? `ios-link${focused ? '' : '-outline'}`
               : 'md-link';
             break;
-          case 'Settings':
+          case 'Login':
             iconName = Platform.OS === 'ios'
               ? `ios-options${focused ? '' : '-outline'}`
               : 'md-options';

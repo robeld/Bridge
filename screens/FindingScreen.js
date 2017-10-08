@@ -6,13 +6,20 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  Dimensions,
+  View
 } from 'react-native';
+
+const FETCH_NUM =  5
+
+import { SearchBar } from 'react-native-elements';
+
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 import ProfileResult from '../components/profile_result.js'
 
+const {height, width} = Dimensions.get("window");
 
 const config = {
     apiKey: "AIzaSyAVEWEDbzbuEOTuyoAWYqFwTggf8Ut4C7Q",
@@ -35,6 +42,26 @@ export default class HomeScreen extends React.Component {
     header: null,
   };
 
+  async queryDb(text) {
+    try {
+      console.log("reached");
+      let init = await fetch(encodeURIComponent("https://bridge-knn.herokuapp.com/"));
+      if(init) {
+        const path = id + "/" + text + "/" + str(FETCH_NUM)
+        let response = await fetch(encodeURIComponent("https://bridge-knn.herokuapp.com/" + path));
+        const indices_str = await text(response);
+        const indices = indices_str.split(",")
+        console.log(indices)
+      }
+      else {
+        console.log("error initalizing");
+      }
+    }
+    catch(e) {
+      console.error(e);
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -43,36 +70,21 @@ export default class HomeScreen extends React.Component {
           contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
+              source={ require('../assets/images/logo.png') }
               style={styles.welcomeImage}
               />
           </View>
 
           <View style={styles.resultsContainer}>
-            <ProfileResult> </ProfileResult>
-            <ProfileResult> </ProfileResult>
-            <ProfileResult> </ProfileResult>
-            <ProfileResult> </ProfileResult>
+            <SearchBar
+              round={true}
+              onChangeText={(text) => this.setState({text})}
+              onSubmitEditing={(text) => this.queryDb(text)}
+              placeholder='Search for a course!'/>
           </View>
 
         </ScrollView>
 
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>
-            This is a tab bar. You can edit it in:
-          </Text>
-
-          <View
-            style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>
-              navigation/MainTabNavigator.js
-            </MonoText>
-          </View>
-        </View>
       </View>
     );
   }
@@ -99,11 +111,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   welcomeImage: {
-    width: 100,
-    height: 80,
+    width: width - 10,
+    height: 150,
     resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
+    marginTop: 30,
   },
   resultsContainer: {
     flex: 1,

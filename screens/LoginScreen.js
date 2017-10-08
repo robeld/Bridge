@@ -1,12 +1,24 @@
 import React from 'react';
-import { Button, Text, View, ScrollView, StyleSheet, Image} from 'react-native';
+import { Button, Text, View, ScrollView, StyleSheet, Image, Dimensions} from 'react-native';
 import { AuthSession } from 'expo';
-import { Login } from '../components/Login/Login'
 
-export default class App extends React.Component {
+const {height, width} = Dimensions.get("window")
+
+export default class LoginScreen extends React.Component {
   render() {
     return (
-      <Login/>
+      <View style={styles.container}>
+        <View style={styles.logoContainer}>
+        <Image
+          style={styles.logo}
+          source={require("../assets/images/logo.png")}
+          />
+        </View>
+
+
+            <Text style={styles.title}>Connect to Students Like You</Text>
+        <Button title="Submit" onPress={(text) => console.log(text)} style={styles.formContainer}> </Button>
+      </View>
     );
   };
 }
@@ -16,6 +28,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#3498db'
   },
 
   logoContainer: {
@@ -25,8 +38,10 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 100,
-    height: 100,
+    width: width - 20,
+    height: 200,
+    marginTop: -height/2 + 200,
+    backgroundColor: 'transparent'
   },
 
   title: {
