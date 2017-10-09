@@ -61,20 +61,15 @@ export default class FindingScreen extends React.Component {
   };
 
   async queryDb() {
-    console.log("TESTING");
-    console.log(this.state['value']);
     try {
       let id = -1;
       try {
         id = await AsyncStorage.getItem('@unique_id');
         if(id !== null) {
           const path = id + "/" + this.state['value'] + "/" + FETCH_NUM;
-          console.log("path: " + path);
           let response = await fetch("https://bridge-knn.herokuapp.com/getSim/" + path);
           const indices_str = await response.text();
           const indices = indices_str.split(",");
-
-          console.log(indices);
 
           const closest = [];
 
@@ -90,12 +85,10 @@ export default class FindingScreen extends React.Component {
 
             const response2 = await fetch("https://bridge-knn.herokuapp.com/common/" + id + '/' + indices[i])
             const similarTraits= await response2.text();
-            console.log(similarTraits);
+            console.log("Similarities: " + similarTraits);
           }
 
           this.state['people'] = closest;
-          console.log("DONE");
-          console.log(this.state['people']);
           this.forceUpdate();
         }
       } catch(error) {
