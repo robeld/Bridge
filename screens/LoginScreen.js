@@ -4,7 +4,7 @@ import { AuthSession, Facebook } from 'expo';
 
 const {height, width} = Dimensions.get("window")
 
-const FB_APP_ID = '130552880933614';
+const FB_APP_ID = 'YOUR_FB_API_KEY';
 
 export default class LoginScreen extends React.Component {
 
